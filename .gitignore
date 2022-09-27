@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Txt file for pseduo code
+*.txt
