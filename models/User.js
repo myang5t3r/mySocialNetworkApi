@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
@@ -8,7 +8,7 @@ const userSchema = new Schema(
       require: true,
       unique: true,
       validate: {
-        validator: () => Promise.resolve(false),
+        validator: () => Promise.resolve(false), //TODO fix validation
         message: "Email validation failed",
       },
     },
@@ -35,10 +35,10 @@ const userSchema = new Schema(
 
 //  Create virtural called friendcount that gets the length of the user's friends array field on query
 userSchema.virtual("friendCount").get(function () {
-  return `{this.friends.length}`;
+  return this.friends.length;
 });
 
 // Initialize the user model
 const User = model("user", userSchema);
 
-module.export = User;
+module.exports = User;
