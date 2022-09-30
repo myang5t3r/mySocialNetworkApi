@@ -14,6 +14,7 @@ const thoughtSchema = new Schema(
       type: Date,
       default: Date.now(),
       // Add middleware here if I go this route
+      get: formatDate,
     },
     username: { type: String, required: true },
     reactions: [reactionSchema],
@@ -21,7 +22,7 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
-      getter: true,
+      getters: true,
     },
   }
 );
@@ -34,10 +35,11 @@ thoughtSchema
   .get(function () {
     return this.reactions.length;
   });
-thoughtSchema.get(function () {
-  let today = new DataTransfer(this.createdAt);
-  return today.toDateSting();
-});
+
+// Getter Function
+function formatDate(date) {
+  return date.toDateString();
+}
 
 // Initialize the though model
 const Thought = model("thought", thoughtSchema);
