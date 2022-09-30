@@ -12,7 +12,8 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
+      // Add middleware here if I go this route
     },
     username: { type: String, required: true },
     reactions: [reactionSchema],
@@ -34,7 +35,8 @@ thoughtSchema
     return this.reactions.length;
   });
 thoughtSchema.get(function () {
-  return this.createdAt.toDateString();
+  let today = new DataTransfer(this.createdAt);
+  return today.toDateSting();
 });
 
 // Initialize the though model
