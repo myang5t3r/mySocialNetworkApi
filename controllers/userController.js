@@ -30,10 +30,10 @@ module.exports = {
       { $set: req.body },
       { runValidators: true, new: true }
     )
-      .then((thought) =>
-        !thought
-          ? res.status(404).json({ message: "No thought with this id!" })
-          : res.json(thought)
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No user with this id!" })
+          : res.json(user)
       )
       .catch((err) => {
         console.log(err);
@@ -42,5 +42,16 @@ module.exports = {
   },
 
   // Delete a user
-  deleteUser(req, res) {},
+  deleteUser(req, res) {
+    User.findOneAndDelete({ _id: req.params.userId })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No user with this id!" })
+          : res.json({ message: "User successfully deleted!" })
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
 };
