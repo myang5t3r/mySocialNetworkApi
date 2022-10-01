@@ -7,10 +7,7 @@ const userSchema = new Schema(
       type: String,
       require: true,
       unique: true,
-      validate: {
-        validator: () => Promise.resolve(false), //TODO fix validation
-        message: "Email validation failed",
-      },
+      match: /.+\@.+\..+/,
     },
     thoughts: [
       {
